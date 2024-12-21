@@ -117,5 +117,22 @@
         }, 300);
     }
 
+        /**
+     * Rotates an element 360 degrees while scaling it, then hides it.
+     * @param {HTMLElement} elem - The DOM element to animate.
+     * @param {string} scale - The target scale (e.g., '0' for shrinking, '2' for enlarging).
+     * @param {number} duration - The duration of the animation in milliseconds.
+     * @example
+     * animate.rotateAndScale(document.querySelector('.my-element'), '0.5', 500);
+     */
+    animate.rotateAndScale = (elem, scale = "0.5", duration = 500) => {
+        elem.style.transition = `transform ${duration}ms ease, opacity ${duration}ms ease`;
+        elem.style.transform = `rotate(360deg) scale(${scale})`;
+        elem.style.opacity = "0";
+
+        setTimeout(() => {
+            elem.style.display = "none";
+        }, duration);
+    };
     window.animate = animate;
 })();

@@ -24,6 +24,7 @@
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 8px;
+            min-height: 260px;
         }
         .demo-title {
             margin-bottom: 10px;
@@ -64,6 +65,41 @@
             </div>
         </div>
 
+        <div class="demo-section">
+            <h2 class="demo-title">Zoom Out</h2>
+            <div class="container">
+                <div class="box" data-animation="zoomOut"></div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">Rotate Out</h2>
+            <div class="container">
+                <div class="box" data-animation="rotateOut"></div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">Flip Out</h2>
+            <div class="container">
+                <div class="box" data-animation="flipOut"></div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">Bounce Out</h2>
+            <div class="container">
+                <div class="box" data-animation="bounceOut"></div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2 class="demo-title">Slide and Rotate Out</h2>
+            <div class="container">
+                <div class="box" data-animation="slideAndRotateOut"></div>
+            </div>
+        </div>
+
         <script src="../src/animate.js"></script>
         <script>
         const boxes = document.querySelectorAll('.box');
@@ -72,13 +108,15 @@
                 const animationType = box.dataset.animation;
                 if (animate[animationType]) {
                     animate[animationType](box);
+                    
+                    // Reset all styles and make visible after animation
+                    setTimeout(() => {
+                        box.style.opacity = '1';
+                        box.style.transform = '';
+                        box.style.display = '';
+                        box.style.visibility = '';
+                    }, 1000);
                 }
-                
-                // Reset the animation after 1 second
-                setTimeout(() => {
-                    box.style.opacity = '';
-                    box.style.transform = '';
-                }, 1000);
             });
         });
     </script>
