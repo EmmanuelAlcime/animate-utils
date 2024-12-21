@@ -1,0 +1,110 @@
+# Animate.js
+
+A lightweight JavaScript animation library that provides simple and elegant exit animations for DOM elements.
+
+## Features
+
+- 🪶 Lightweight with zero dependencies
+- 🎯 Simple API
+- 🎨 Multiple animation effects
+- 📱 Works with any HTML element
+- ⚡ Performance-focused animations
+
+## Installation
+
+Include the script in your HTML:
+
+```html
+<script src="src/animate.js"></script>
+```
+
+## Usage
+
+The library exposes an `animate` object globally with various animation methods.
+
+```javascript
+// Select an element
+const element = document.querySelector('.my-element');
+
+// Apply an animation
+animate.fadeOut(element);
+```
+
+## Available Animations
+
+### fadeOut(element)
+Smoothly fades out an element by reducing its opacity to 0.
+
+```javascript
+animate.fadeOut(document.querySelector('.my-element'));
+```
+
+### zoomOut(element)
+Scales down an element until it disappears.
+
+```javascript
+animate.zoomOut(document.querySelector('.my-element'));
+```
+
+### slideOut(element)
+Slides an element to the right while fading it out.
+
+```javascript
+animate.slideOut(document.querySelector('.my-element'));
+```
+
+### rotateOut(element)
+Rotates an element 360 degrees while scaling it down to zero.
+
+```javascript
+animate.rotateOut(document.querySelector('.my-element'));
+```
+
+### shrinkAndFadeOut(element)
+Simultaneously shrinks and fades out an element.
+
+```javascript
+animate.shrinkAndFadeOut(document.querySelector('.my-element'));
+```
+
+### flipOut(element)
+Flips an element 90 degrees around its Y axis while fading out.
+
+```javascript
+animate.flipOut(document.querySelector('.my-element'));
+```
+
+### bounceOut(element)
+Creates a bounce effect before scaling down to zero.
+
+```javascript
+animate.bounceOut(document.querySelector('.my-element'));
+```
+
+### slideAndRotateOut(element)
+Combines a slide and rotation animation while fading out.
+
+```javascript
+animate.slideAndRotateOut(document.querySelector('.my-element'));
+```
+
+## Animation Duration
+
+All animations have a default duration of 300ms, except for `bounceOut` which takes 600ms due to its multi-step animation.
+
+## Browser Support
+
+This library uses modern CSS transforms and transitions. It supports all modern browsers:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## License
+
+MIT License
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
