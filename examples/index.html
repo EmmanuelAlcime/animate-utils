@@ -5,120 +5,190 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Animate Utils Demo</title>
         <style>
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: coral;
-            margin: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 20px;
-        }
-        .demo-section {
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            min-height: 260px;
-        }
-        .demo-title {
-            margin-bottom: 10px;
-            color: #333;
-            font-family: Arial, sans-serif;
-        }
-    </style>
+            * { box-sizing: border-box; }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                max-width: 900px;
+                margin: 0 auto;
+                padding: 20px;
+                background: #f7f7f7;
+                color: #333;
+            }
+            h1 { font-size: 1.8rem; margin-bottom: 4px; }
+            .subtitle { margin-top: 0; color: #666; }
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 16px;
+            }
+            .card {
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                padding: 16px;
+                text-align: center;
+            }
+            .card h3 {
+                margin: 0 0 12px 0;
+                font-size: 0.85rem;
+                color: #555;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .card .badge {
+                display: inline-block;
+                font-size: 0.65rem;
+                padding: 2px 7px;
+                border-radius: 4px;
+                margin-bottom: 8px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+            }
+            .badge-entrance { background: #d4edda; color: #155724; }
+            .badge-exit { background: #f8d7da; color: #721c24; }
+            .badge-attention { background: #fff3cd; color: #856404; }
+            .box {
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, #ff7e5f, #feb47b);
+                border-radius: 8px;
+                margin: 0 auto;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .box:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+            .box-label {
+                font-size: 0.7rem;
+                color: #888;
+                margin-top: 10px;
+            }
+            .actions {
+                display: flex;
+                gap: 10px;
+                margin: 20px 0;
+                flex-wrap: wrap;
+            }
+            button {
+                padding: 8px 18px;
+                border: none;
+                border-radius: 6px;
+                font-size: 0.85rem;
+                cursor: pointer;
+                background: #eee;
+                color: #333;
+                transition: background 0.15s;
+            }
+            button:hover { background: #ddd; }
+            button.primary { background: #ff7e5f; color: #fff; }
+            button.primary:hover { background: #e56a4e; }
+            .section-title {
+                font-size: 1.2rem;
+                font-weight: 700;
+                margin: 28px 0 12px 0;
+                padding-bottom: 6px;
+                border-bottom: 2px solid #e0e0e0;
+            }
+        </style>
     </head>
     <body>
-        <h1>Animation Utils Demo</h1>
-        <p>Click on the boxes to see the animations</p>
+        <h1>Animate Utils</h1>
+        <p class="subtitle">Click any box to play its animation</p>
 
-        <div class="demo-section">
-            <h2 class="demo-title">Shrink and Fade Out</h2>
-            <div class="container">
-                <div class="box" data-animation="shrinkAndFadeOut"></div>
-            </div>
+        <div class="actions">
+            <button class="primary" id="resetAll">Reset All</button>
         </div>
 
-        <div class="demo-section">
-            <h2 class="demo-title">Fade Out</h2>
-            <div class="container">
-                <div class="box" data-animation="fadeOut"></div>
-            </div>
-        </div>
+        <div class="section-title">Entrance</div>
+        <div class="grid" id="entrance-grid"></div>
 
-        <div class="demo-section">
-            <h2 class="demo-title">Slide Out</h2>
-            <div class="container">
-                <div class="box" data-animation="slideOut"></div>
-            </div>
-        </div>
+        <div class="section-title">Exit</div>
+        <div class="grid" id="exit-grid"></div>
 
-        <div class="demo-section">
-            <h2 class="demo-title">Rotate and Scale</h2>
-            <div class="container">
-                <div class="box" data-animation="rotateAndScale"></div>
-            </div>
-        </div>
-
-        <div class="demo-section">
-            <h2 class="demo-title">Zoom Out</h2>
-            <div class="container">
-                <div class="box" data-animation="zoomOut"></div>
-            </div>
-        </div>
-
-        <div class="demo-section">
-            <h2 class="demo-title">Rotate Out</h2>
-            <div class="container">
-                <div class="box" data-animation="rotateOut"></div>
-            </div>
-        </div>
-
-        <div class="demo-section">
-            <h2 class="demo-title">Flip Out</h2>
-            <div class="container">
-                <div class="box" data-animation="flipOut"></div>
-            </div>
-        </div>
-
-        <div class="demo-section">
-            <h2 class="demo-title">Bounce Out</h2>
-            <div class="container">
-                <div class="box" data-animation="bounceOut"></div>
-            </div>
-        </div>
-
-        <div class="demo-section">
-            <h2 class="demo-title">Slide and Rotate Out</h2>
-            <div class="container">
-                <div class="box" data-animation="slideAndRotateOut"></div>
-            </div>
-        </div>
+        <div class="section-title">Attention</div>
+        <div class="grid" id="attention-grid"></div>
 
         <script src="../src/animate.js"></script>
         <script>
-        const boxes = document.querySelectorAll('.box');
-        boxes.forEach(box => {
-            box.addEventListener('click', () => {
-                const animationType = box.dataset.animation;
-                if (animate[animationType]) {
-                    animate[animationType](box);
-                    
-                    // Reset all styles and make visible after animation
-                    setTimeout(() => {
-                        box.style.opacity = '1';
-                        box.style.transform = '';
-                        box.style.display = '';
-                        box.style.visibility = '';
-                    }, 1000);
-                }
+            const entranceAnimations = ['fadeIn', 'zoomIn', 'slideIn', 'rotateIn', 'flipIn', 'bounceIn'];
+            const exitAnimations = ['fadeOut', 'zoomOut', 'slideOut', 'rotateOut', 'shrinkAndFadeOut', 'flipOut', 'bounceOut', 'slideAndRotateOut', 'dropOut', 'lightSpeedOut', 'blurOut', 'rotateAndScale'];
+            const attentionAnimations = ['pulse', 'shake', 'swing', 'wobble'];
+
+            const allAnimations = [
+                { group: 'entrance', names: entranceAnimations },
+                { group: 'exit', names: exitAnimations },
+                { group: 'attention', names: attentionAnimations }
+            ];
+
+            function capitalize(str) {
+                return str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim();
+            }
+
+            function createCard(name, group) {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                const badge = document.createElement('span');
+                badge.className = `badge badge-${group}`;
+                badge.textContent = group;
+                card.appendChild(badge);
+
+                const title = document.createElement('h3');
+                title.textContent = name;
+                card.appendChild(title);
+
+                const box = document.createElement('div');
+                box.className = 'box';
+                box.id = `box-${name}`;
+                card.appendChild(box);
+
+                const label = document.createElement('div');
+                label.className = 'box-label';
+                label.textContent = 'click to play';
+                card.appendChild(label);
+
+                return card;
+            }
+
+            function buildGrid(group, names, containerId) {
+                const container = document.getElementById(containerId);
+                names.forEach(name => {
+                    container.appendChild(createCard(name, group));
+                });
+            }
+
+            buildGrid('entrance', entranceAnimations, 'entrance-grid');
+            buildGrid('exit', exitAnimations, 'exit-grid');
+            buildGrid('attention', attentionAnimations, 'attention-grid');
+
+            document.querySelectorAll('.box').forEach(box => {
+                box.addEventListener('click', () => {
+                    const name = box.id.replace('box-', '');
+                    const fn = animate[name];
+
+                    if (!fn) return;
+
+                    if (name === 'rotateAndScale') {
+                        fn(box, '0.3', 500);
+                        return;
+                    }
+
+                    fn(box);
+
+                    if (exitAnimations.includes(name)) {
+                        setTimeout(() => resetBox(box), 1500);
+                    }
+                });
             });
-        });
-    </script>
+
+            function resetBox(box) {
+                animate.reset(box);
+            }
+
+            document.getElementById('resetAll').addEventListener('click', () => {
+                document.querySelectorAll('.box').forEach(resetBox);
+            });
+        </script>
     </body>
 </html>
