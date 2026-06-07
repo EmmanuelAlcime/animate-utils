@@ -27,6 +27,7 @@
                 border-radius: 10px;
                 padding: 16px;
                 text-align: center;
+                min-height: 230px;
             }
             .card h3 {
                 margin: 0 0 12px 0;
@@ -49,12 +50,17 @@
             .badge-entrance { background: #d4edda; color: #155724; }
             .badge-exit { background: #f8d7da; color: #721c24; }
             .badge-attention { background: #fff3cd; color: #856404; }
+            .box-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 80px;
+            }
             .box {
                 width: 80px;
                 height: 80px;
                 background: linear-gradient(135deg, #ff7e5f, #feb47b);
                 border-radius: 8px;
-                margin: 0 auto;
                 cursor: pointer;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             }
@@ -83,6 +89,27 @@
             button:hover { background: #ddd; }
             button.primary { background: #ff7e5f; color: #fff; }
             button.primary:hover { background: #e56a4e; }
+            .card-speed {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                margin-top: 10px;
+                font-size: 0.7rem;
+                color: #999;
+            }
+            .card-speed input[type="range"] {
+                width: 70px;
+                accent-color: #ff7e5f;
+                height: 14px;
+                cursor: pointer;
+            }
+            .card-speed .speed-val {
+                font-weight: 600;
+                min-width: 28px;
+                text-align: right;
+                font-size: 0.7rem;
+            }
             .section-title {
                 font-size: 1.2rem;
                 font-weight: 700;
@@ -109,21 +136,19 @@
         <div class="section-title">Attention</div>
         <div class="grid" id="attention-grid"></div>
 
-        <script src="../src/animate.js"></script>
-        <script>
+        <script type="module">
+            import animate from '../src/animate.js';
+
             const entranceAnimations = ['fadeIn', 'zoomIn', 'slideIn', 'rotateIn', 'flipIn', 'bounceIn'];
             const exitAnimations = ['fadeOut', 'zoomOut', 'slideOut', 'rotateOut', 'shrinkAndFadeOut', 'flipOut', 'bounceOut', 'slideAndRotateOut', 'dropOut', 'lightSpeedOut', 'blurOut', 'rotateAndScale'];
             const attentionAnimations = ['pulse', 'shake', 'swing', 'wobble'];
 
-            const allAnimations = [
-                { group: 'entrance', names: entranceAnimations },
-                { group: 'exit', names: exitAnimations },
-                { group: 'attention', names: attentionAnimations }
-            ];
-
-            function capitalize(str) {
-                return str.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase()).trim();
-            }
+            const defaultDuration = {
+                fadeIn: 300, zoomIn: 300, slideIn: 300, rotateIn: 400, flipIn: 400, bounceIn: 600,
+                fadeOut: 300, zoomOut: 300, slideOut: 300, rotateOut: 400, shrinkAndFadeOut: 300, flipOut: 400,
+                bounceOut: 600, slideAndRotateOut: 400, dropOut: 400, lightSpeedOut: 400, blurOut: 400,
+                pulse: 600, shake: 500, swing: 500, wobble: 600,
+            };
 
             function createCard(name, group) {
                 const card = document.createElement('div');
@@ -138,10 +163,32 @@
                 title.textContent = name;
                 card.appendChild(title);
 
+                const boxWrap = document.createElement('div');
+                boxWrap.className = 'box-wrap';
                 const box = document.createElement('div');
                 box.className = 'box';
                 box.id = `box-${name}`;
-                card.appendChild(box);
+                boxWrap.appendChild(box);
+                card.appendChild(boxWrap);
+
+                const sliderWrap = document.createElement('div');
+                sliderWrap.className = 'card-speed';
+                const slider = document.createElement('input');
+                slider.type = 'range';
+                slider.min = '0.25';
+                slider.max = '3';
+                slider.step = '0.25';
+                slider.value = '1';
+                slider.dataset.name = name;
+                const val = document.createElement('span');
+                val.className = 'speed-val';
+                val.textContent = '1x';
+                slider.addEventListener('input', () => {
+                    val.textContent = parseFloat(slider.value).toFixed(1) + 'x';
+                });
+                sliderWrap.appendChild(slider);
+                sliderWrap.appendChild(val);
+                card.appendChild(sliderWrap);
 
                 const label = document.createElement('div');
                 label.className = 'box-label';
@@ -149,6 +196,16 @@
                 card.appendChild(label);
 
                 return card;
+            }
+
+            function getSpeed(name) {
+                const slider = document.querySelector(`.card-speed input[data-name="${name}"]`);
+                return slider ? parseFloat(slider.value) : 1;
+            }
+
+            function scaledDuration(name) {
+                const base = defaultDuration[name] || 300;
+                return Math.round(base / getSpeed(name));
             }
 
             function buildGrid(group, names, containerId) {
@@ -170,14 +227,14 @@
                     if (!fn) return;
 
                     if (name === 'rotateAndScale') {
-                        fn(box, '0.3', 500);
+                        fn(box, '0.3', scaledDuration(name));
                         return;
                     }
 
-                    fn(box);
+                    fn(box, scaledDuration(name));
 
                     if (exitAnimations.includes(name)) {
-                        setTimeout(() => resetBox(box), 1500);
+                        setTimeout(() => resetBox(box), Math.max(1500, scaledDuration(name) + 500));
                     }
                 });
             });

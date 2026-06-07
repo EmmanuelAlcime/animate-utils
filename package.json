@@ -1,0 +1,29 @@
+{
+    "name": "animate-utils",
+    "version": "2.0.0",
+    "type": "module",
+    "description": "A lightweight zero-dependency JavaScript animation library for DOM elements",
+    "main": "src/animate.js",
+    "types": "index.d.ts",
+    "license": "MIT",
+    "author": "Emmanuel Alcime",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/EmmanuelAlcime/animate-utils.git"
+    },
+    "keywords": [
+        "animation",
+        "dom",
+        "javascript",
+        "lightweight",
+        "zero-dependency",
+        "web-animations",
+        "entrance",
+        "exit",
+        "attention"
+    ],
+    "files": [
+        "src/animate.js",
+        "index.d.ts"
+    ]
+}
